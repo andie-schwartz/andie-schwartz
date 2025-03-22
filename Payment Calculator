@@ -1,0 +1,120 @@
+
+//
+//  Andie Schwartz
+
+
+
+
+#include <iostream>
+#include <string>
+#include "Products.h"
+
+using namespace std;
+
+int main() 
+{
+    //Variable declarations:
+    int months, creditScore, selection;
+    double price, interest, totalCost, monthlyPayment;
+    string provider;
+    char again;
+    Payments payment;
+    
+    //User input:
+    cout << "What is your credit score? " << endl;
+    cin >> creditScore;
+    
+    // Makes sure the user enters a valid credit score
+    while (creditScore > 850 || creditScore < 300)
+    {
+        cout << "Please enter a credit score between 850 and 300." << endl;
+        cin >> creditScore;
+    }
+    
+    do {
+        cout << "What is the price of the item?" << endl;
+        cin.ignore();
+        cin >> price;
+        
+        // makes sure the user enters a valid price
+        while (price < 0)
+        {
+            cout << "Please enter a positive price." << endl;
+            cin >> price;
+        }
+        
+        cout << "How many months would you like the payment period to be? " << endl;
+        cin >> months;
+        
+        // Makes sure the user enters a valid time period
+        while (months < 0)
+        {
+            cout << "Please enter a valid time." << endl;
+            cin >> months;
+        }
+        
+        // Calculate and Display Interest Percentages for each bank
+        cout << "The options for interest percentages with your credit score are" << endl;
+        cout << "1. Capital One: " << payment.CalcInterest1(creditScore) << endl;
+        cout << "2. Wells Fargo: " << payment.CalcInterest2(creditScore) << endl;
+        cout << "3. Navy Federal: " << payment.CalcInterest3(creditScore) << endl;
+        cout << "4. Chase: " << payment.CalcInterest4(creditScore) << endl;
+        cout << "5. Bank Of America: " << payment.CalcInterest5(creditScore) << endl << endl;
+        
+        // Let the user select which provider to go with
+        do {
+            cout << "Please select a bank using 1-5. " << endl;
+            cin >> selection;
+        } while (selection < 1 && selection > 5);
+        
+        switch (selection) {
+            case 1:
+                provider = "Capitol One";
+                interest = payment.CalcInterest1(creditScore);
+                break;
+            case 2:
+                provider = "Wells Fargo";
+                interest = payment.CalcInterest2(creditScore);
+                break;
+            case 3:
+                provider = "Navy Federal";
+                interest = payment.CalcInterest3(creditScore);
+                break;
+            case 4:
+                provider = "Chase";
+                interest = payment.CalcInterest4(creditScore);
+                break;
+            case 5:
+                provider = "Bank of America";
+                interest = payment.CalcInterest5(creditScore);
+                break;
+            default:
+                interest = 0;
+                break;
+        }
+        
+        // Calculate the total loan amount
+        totalCost = payment.CalcTotal(interest, price);
+        
+        // Calculate the monthly payment amount
+        monthlyPayment = payment.CalcMonthlyPayment(months, totalCost);
+        
+        cout << "The provider you selected is " <<  provider << endl;
+        cout << "Your montly payment will be " << monthlyPayment << endl;
+        cout << "Here is the table for the payments of your item over " << months << " months: " << endl;
+        cout << "--------------------------------------------------------------------------------------------------" << endl;
+        
+        // Display the table of payments over the specified period
+        payment.CalcAndDisplay(months, price, interest, monthlyPayment);
+        
+        cout << endl << endl << endl;
+        
+        
+        // See if the user would like to do another item
+        cout << "Would you like to see the payments on another item? (y or n)" << endl;
+        cin >> again;
+    } while (again == 'y');
+    
+    
+    return 0;
+}
