@@ -1,0 +1,242 @@
+// Auto Repair Bill
+// Andie Schwartz
+// 2/11/24
+// Auto Repair bill takes information from the user to calculate total repair costs 
+
+#include <iostream>
+#include <cstdlib>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+class AutoRepairBill
+{
+	private:
+		static const double SALES_TAX_RATE = 0.07;
+		static const double LABOR_COST_PER_HOUR = 100.0;
+		string name;
+		string phoneNumber;
+		string make;
+		string model;
+		string year;
+		string description;
+		double laborHours;
+		double partsCost;
+		double laborCost;
+		double subtotal;
+		double salesTax;
+		double total;
+		
+	public:
+		
+		AutoRepairBill();   // Constructor
+		AutoRepairBill(string, string, string, string, string, string, double, double);   // Full constructor
+		// Setters:
+		void setName(string);
+		void setPhoneNumber(string);
+		void setMake(string);
+		void setModel(string);
+		void setYear(string);
+		void setDescription(string);
+		void setLaborHours(double);
+		void setPartsCost(double);
+		// Getters:
+		string getName();
+		string getPhoneNumber();
+		string getMake();
+		string getModel();
+		string getYear();
+		string getDescription();
+		double getLaborHours();
+		double getPartsCost();
+		// print:
+		void print();
+		
+};
+
+AutoRepairBill::AutoRepairBill()
+{
+	name = " ";
+	phoneNumber = " ";
+	make = " ";
+	model = " ";
+	year = " ";
+	description = " ";
+	laborHours = 0.0;
+	partsCost = 0.0;
+}
+
+AutoRepairBill::AutoRepairBill(string _name, string _phoneNumber, string _make, string _model, string _year, string _description, double _laborHours, double _partsCost)
+{
+	name = _name;
+	phoneNumber = _phoneNumber;
+	make = _make;
+	model = _model;
+	year = _year;
+	description = _description;
+	laborHours = _laborHours;
+	partsCost = _partsCost;
+} 
+
+// Setters:
+void AutoRepairBill::setName(string _name)
+{
+	name = _name;
+}
+
+void AutoRepairBill::setPhoneNumber(string _phoneNumber)
+{
+	phoneNumber = _phoneNumber;
+}
+
+void AutoRepairBill::setMake(string _make)
+{
+	make = _make;
+}
+
+void AutoRepairBill::setModel(string _model)
+{
+	model = _model;
+}
+
+void AutoRepairBill::setYear(string _year)
+{
+	year = _year;
+}
+
+void AutoRepairBill::setDescription(string _description)
+{
+	description = _description;
+}
+
+void AutoRepairBill::setLaborHours(double _laborHours)
+{
+	laborHours = _laborHours;
+}
+
+void AutoRepairBill::setPartsCost(double _partsCost)
+{
+	partsCost = _partsCost;
+}
+
+// Getters:
+
+string AutoRepairBill::getName()
+{
+	return name;
+}
+
+string AutoRepairBill::getPhoneNumber()
+{
+	return phoneNumber;
+}
+	
+string AutoRepairBill::getMake()
+{
+	return make;
+}
+
+string AutoRepairBill::getModel()
+{
+	return model;
+}
+
+string AutoRepairBill::getYear()
+{
+	return year;
+}
+
+string AutoRepairBill::getDescription()
+{
+	return description;
+}
+
+double AutoRepairBill::getLaborHours()
+{
+	return laborHours;
+}
+
+double AutoRepairBill::getPartsCost()
+{
+	return partsCost;
+}
+
+void AutoRepairBill::print()
+{
+	// Calculations of costs:
+	laborCost = laborHours * LABOR_COST_PER_HOUR;
+	subtotal = partsCost + laborCost;
+	salesTax = subtotal * SALES_TAX_RATE;
+	total = subtotal + salesTax;
+	
+	cout << endl << endl << endl;
+	cout << "----------------------------------------------" << endl;
+	cout << "             Customer Receipt                 " << endl;
+	cout << "----------------------------------------------" << endl;
+	cout << "Customer Information" << endl;
+	cout << "----------------------------------------------" << endl;
+	cout << fixed << setprecision(2) << setw(15) 
+	<< "Customer name: " << name << endl << "Customer phone number: " << phoneNumber
+	<< endl << endl << "Vehicle information: "<< endl << "--------------------------------------"
+	<< endl << "Make: " << make << endl << "Model: " << model << endl << "Year: " << year << endl
+	<< "Work Performed: " << description << endl << endl << "Costs" << endl 
+	<< "--------------------------------------------" << endl << "Labor cost: " << laborCost << endl
+	<< "Parts Cost: " << partsCost << endl << "Subtotal: " << subtotal << endl << "Sales tax: " << salesTax
+	<< endl << "Total: " << total << endl << endl;
+}
+
+
+// ******************************************************
+//          MAIN
+// ******************************************************
+
+// function prototype statements:
+void getData(string &, string &,string &, string &, string &, string &, double &, double &);
+
+int main()
+{
+	// Define variables
+	string customer_name, phone_number, make, model, year, work_performed;
+	double labor_hours, labor_cost, parts_cost, subtotal, sales_tax, total;
+	
+	// Get data from the user
+	getData(customer_name, phone_number, make, model, year, work_performed, labor_hours, parts_cost);
+	
+	// Define an instance of the AutoRepairBill class using the full constructor
+	AutoRepairBill repair_bill(customer_name, phone_number, make, model, year, work_performed, labor_hours, parts_cost);
+	
+	// Display the output
+	repair_bill.print();
+}
+
+void getData(string &customer_name, string &phone_number,string & make, string &model, string &year, string &work_performed, double &labor_hours, double &parts_cost)
+{
+	cout << "Welcome to the Auto Repair Program " << endl;
+	cout << "----------------------------------" << endl << endl;
+	cout << "Please enter the following information: " << endl << endl;
+	
+	cout << "Customer's name: ";
+	getline(cin,customer_name);
+	cout << endl << "Customer's telephone number: ";
+	getline(cin,phone_number);
+	cout << endl << "Make: ";
+	getline(cin, make);
+	cout << endl << "Model: ";
+	getline(cin, model);
+	cout << endl << "Year: ";
+	getline(cin, year);
+	cout << endl << "Description of work performed: ";
+	getline(cin, work_performed);
+	cout << endl << "Total labor hours: ";
+	cin >> labor_hours;
+	cout << endl << "Total parts cost: ";
+	cin >> parts_cost;
+	
+}
+
+
+
+
+
+
