@@ -1,0 +1,78 @@
+// Program Employees
+// Programmer: Andie Schwartz
+// Date: 1/27/24
+// Program Employees takes the names, hours, and payrate of a user specified number of employees
+// and gives their total pay for a pay period.
+
+#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+int main()
+{
+
+	int numEmployees;
+	string *namesPtr;
+	double *payRatePtr, *hoursWorkedPtr, *totalPayPtr;
+
+	// Get number of employees
+	cout << "Please enter the number of employees: ";
+	cin >> numEmployees;
+	cout << endl;
+	cin.ignore();
+
+
+	// Declare new arrays
+	namesPtr = new string[numEmployees];
+	payRatePtr= new double[numEmployees];
+	hoursWorkedPtr= new double[numEmployees];
+	totalPayPtr= new double[numEmployees];
+	
+	
+	// Get names of each employee
+	for (int i = 0; i < numEmployees; i++)
+	{
+		cout << "Please the name of employee " << i + 1 << ":" << endl;
+		getline(cin, namesPtr[i]);
+	}
+	
+	cout <<endl;
+	cout << "------------------------------------------" << endl;
+	cout << "Enter the payrate for each employee." << endl;
+	
+	// Get payrate for each employee
+	for (int j = 0; j < numEmployees; j++)
+	{
+		cout << namesPtr[j] << " :";
+		cin >> payRatePtr[j];
+	}
+	
+	cout <<endl;
+	cout << "------------------------------------------" << endl;
+	cout << "Enter the hours worked for each employee." << endl;
+	
+	// Get hours worked for each employee
+	for (int n = 0; n < numEmployees; n++)
+	{
+		cout << namesPtr[n] << " :";
+		cin >> hoursWorkedPtr[n];
+	}
+	
+	
+	cout << endl << endl;
+	cout << setw(25) << left << "Name" << setw(10) << right << "Total Pay" << endl;
+	cout << "-----------------------------------" << endl;
+	
+	
+	// Display the total pay for each employee
+	for (int k = 0; k < numEmployees; k++)
+	{
+		cout << fixed << setprecision(2) << setw(25) << left << namesPtr[k] << setw(10) << right 
+			<< "$ " << (payRatePtr[k] * hoursWorkedPtr[k]) << endl;
+	}
+	
+	
+	
+	
+}
